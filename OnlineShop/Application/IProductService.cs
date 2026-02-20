@@ -1,8 +1,10 @@
-﻿namespace OnlineShop.Application
+﻿using OnlineShop.ViewModels;
+
+namespace OnlineShop.Application
 {
     public interface IProductService
     {
-        void Add();
+        void Add(ProductAddViewModel productAddViewModel);
       
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OnlineShop.Models;
 using OnlineShop.Persistence;
+using OnlineShop.ViewModels;
 
 namespace OnlineShop.Application
 {
@@ -10,7 +11,7 @@ namespace OnlineShop.Application
         {
             _repository = productRepository;
         }
-        public void Add()
+        public void Add(ProductAddViewModel productAddViewModel)
         {
             Product product = new Product();
             _repository.Add(product);

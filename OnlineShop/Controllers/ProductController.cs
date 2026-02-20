@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application;
+using OnlineShop.ViewModels;
 
 namespace OnlineShop.Controllers
 {
@@ -10,9 +11,9 @@ namespace OnlineShop.Controllers
         {
             _productService = productService;
         }
-        public IActionResult Add()
+        public IActionResult Add(ProductAddViewModel productAddViewModel)
         {
-            _productService.Add();
+            _productService.Add(productAddViewModel);
             return View();
         }
 

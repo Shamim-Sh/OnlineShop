@@ -12,7 +12,7 @@ namespace OnlineShop
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<ShopContext>(o=>o.UseSqlServer("data source = .; initial catalog = OnlineShopDB; integrated security = true;") );
+            builder.Services.AddDbContext<ShopContext>(o=>o.UseSqlServer("data source = .; initial catalog = OnlineShopDB; integrated security = true;TrustServerCertificate=True;") );
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             var app = builder.Build();
