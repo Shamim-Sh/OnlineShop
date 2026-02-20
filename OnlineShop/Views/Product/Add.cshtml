@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<form asp-action="POST">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="exampleInputName" name="Name" aria-describedby="nameHelp">
+@*         <div id="nameHelp" class="form-text">We'll never share your email with anyone else.</div>
+ *@    </div>
+
+    <div class="mb-3">
+        <label for="Price" class="form-label">Price</label>
+        <input type="number" class="form-control" id="exampleInputPrice" name="Price" aria-describedby="PriceHelp">
+        @*         <div id="nameHelp" class="form-text">We'll never share your email with anyone else.</div>
+        *@
+    </div>
+
+    <div class="mb-3">
+        <label for="Stock" class="form-label">Stock</label>
+        <input type="number" class="form-control" id="exampleInputStock" name="Stock" aria-describedby="StockHelp">
+        @*         <div id="nameHelp" class="form-text">We'll never share your email with anyone else.</div>
+        *@
+    </div>
+
+    <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <textarea class="form-control" id="exampleInputDescription" name="Description" aria-describedby="DescriptionHelp" rows="4"></textarea>
+
+        @* <input type="text" class="form-control" id="exampleInputDescription" name="Description" aria-describedby="DescriptionHelp"> *@
+        @*         <div id="nameHelp" class="form-text">We'll never share your email with anyone else.</div>
+        *@
+    </div>
+
+    <button type="submit" asp-area="" asp-controller="Product" asp-action="Add" class="btn btn-primary">Submit</button>
+</form>
+

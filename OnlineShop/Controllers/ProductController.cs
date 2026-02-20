@@ -11,11 +11,21 @@ namespace OnlineShop.Controllers
         {
             _productService = productService;
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
         public IActionResult Add(ProductAddViewModel productAddViewModel)
         {
             _productService.Add(productAddViewModel);
             return View();
         }
+
 
     }
 }
