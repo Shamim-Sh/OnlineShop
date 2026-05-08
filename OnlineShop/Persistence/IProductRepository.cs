@@ -6,5 +6,8 @@ namespace OnlineShop.Persistence
     {
         public void Add(Product product);
         public List<Product> GetAll();
+        public Product Get(int id);
+        public void Delete(Product product);
+        int Update(Product product);
     }
 }

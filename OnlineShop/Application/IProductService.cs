@@ -5,7 +5,8 @@ namespace OnlineShop.Application
     public interface IProductService
     {
         void Add(ProductAddViewModel productAddViewModel);
-        public List<ProductViewModel> GetAll();
-
+        List<ProductViewModel> GetAll();
+        bool Delete(int id);
+        bool Update(ProductUpdateViewModel viewModel);
     }
 }

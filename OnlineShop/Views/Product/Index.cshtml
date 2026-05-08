@@ -3,5 +3,32 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+@model List<OnlineShop.ViewModels.ProductViewModel>
+<div class="container">
+  
+    <div class="row border-bottom border-2 fw-bold bg-light p-2 align-items-center">
+        <div class="col-1">#</div>
+        <div class="col-3">نام</div>
+        <div class="col-3">ایمیل</div>
+        <div class="col-2">نقش</div>
+        <div class="col-3">عملیات</div>
+    </div>
+
+
+     <div class="row border-bottom py-2 align-items-center">
+        <div class="col-1">1</div>
+        <div class="col-3">@Model.</div>
+        <div class="col-3">ali@example.com</div>
+        <div class="col-2">مدیر</div>
+        <div class="col-3">
+            <button class="btn btn-sm btn-outline-primary me-2" title="ویرایش">
+                <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" title="حذف">
+                <i class="bi bi-trash"></i>
+            </button>
+        </div>
+    </div>
+</div>
 
 

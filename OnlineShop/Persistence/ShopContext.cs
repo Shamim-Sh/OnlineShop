@@ -4,7 +4,7 @@ using OnlineShop.Models;
 
 namespace OnlineShop.Persistence
 {
-    public class ShopContext : DbContext
+    public class ShopContext :Microsoft.EntityFrameworkCore.DbContext
     {
         public ShopContext(DbContextOptions<ShopContext> options):base(options)
         {
