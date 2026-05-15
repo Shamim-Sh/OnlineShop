@@ -13,15 +13,19 @@ namespace OnlineShop.Application
             _repository = productRepository;
         }
 
-        #region CRUD     
-        public void Add(ProductAddViewModel productAddViewModel)
+        public bool Add(ProductAddViewModel productAddViewModel)
         {
+            //TODO convert to object initializer
             var product = new Product();
             product.Name = productAddViewModel.Name;
             product.Description = productAddViewModel.Description;
             product.Stock = productAddViewModel.Stock;
             product.Price = productAddViewModel.Price;
-            _repository.Add(product);
+            var rowAffected = _repository.Add(product);
+
+            if (rowAffected > 0)
+                return true;
+            else return false;
 
         }
 
@@ -31,11 +35,13 @@ namespace OnlineShop.Application
 
             if (product is null) return false;
 
-            _repository.Delete(product);
+            var rowAffected = _repository.Delete(product);
 
-            return true;
+            if (rowAffected > 0)
+                return true;
+            else return false;
+
         }
-        #endregion
 
         public List<ProductViewModel> GetAll()
         {
@@ -54,6 +60,29 @@ namespace OnlineShop.Application
             }
             return viewModels;
         }
+
+        public ProductViewModel Get(int id)
+        {
+            Product product = _repository.Get(id);
+
+            if (product == null)
+                return null;
+
+            ProductViewModel viewModel = new ProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                Stock = product.Stock,
+                ImageUrl = product.ImageUrl
+            };
+
+            return viewModel;
+
+        }
+
+
 
         public bool Update(ProductUpdateViewModel viewModel)
         {

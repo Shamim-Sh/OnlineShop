@@ -15,10 +15,20 @@ namespace OnlineShop.Controllers
         public IActionResult Index()
         {
             List<ProductViewModel> products = _productService.GetAll();
-           //var products1 = _productService.GetAll();
-          
+            //var products1 = _productService.GetAll();
+
             return View(products);
         }
+
+        public IActionResult Edit(int id)
+        {
+
+            ProductViewModel product = _productService.Get(id);
+
+            return View(product);
+
+        }
+
 
         /// <summary>
         /// This method calls when user clicks on Add action
@@ -38,26 +48,29 @@ namespace OnlineShop.Controllers
         [HttpPost]
         public IActionResult Add(ProductAddViewModel productAddViewModel)
         {
-            _productService.Add(productAddViewModel);
-            return View();
-        }
-
-        [HttpPut]
-        public IActionResult Update(ProductUpdateViewModel viewModel)
-        {
-            var result = _productService.Update(viewModel);
+            var result = _productService.Add(productAddViewModel);
             if (result == true)
-                return Redirect("/Index");
+                return Redirect("/Product");
             else
                 return BadRequest();
         }
 
-        [HttpDelete]
+        [HttpPost]
+        public IActionResult Edit(ProductUpdateViewModel viewModel)
+        {
+            var result = _productService.Update(viewModel);
+            if (result == true)
+                return Redirect("/Product");
+            else
+                return BadRequest();
+        }
+
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             var result = _productService.Delete(id);
             if (result == true)
-                return Redirect("/Index");
+                return Redirect("/Product");
             else
                 return BadRequest();
 
