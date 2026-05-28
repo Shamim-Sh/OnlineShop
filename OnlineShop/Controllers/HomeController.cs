@@ -4,6 +4,7 @@ using OnlineShop.Application;
 using OnlineShop.Models;
 using OnlineShop.ViewModels;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace OnlineShop.Controllers
 {
@@ -17,7 +18,7 @@ namespace OnlineShop.Controllers
 
         public IActionResult Index()
         {
-            List<ProductViewModel> products = _productService.GetAll();
+            List<ProductViewModel> products = _productService.GetAll();                                            
             return View(products);
         }
 

@@ -1,4 +1,5 @@
-﻿using OnlineShop.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using OnlineShop.Models;
 using OnlineShop.Persistence;
 using OnlineShop.ViewModels;
 using System.Collections.Generic;
@@ -8,41 +9,12 @@ namespace OnlineShop.Application
     public class ProductService : IProductService
     {
         private IProductRepository _repository;
-        public ProductService(IProductRepository productRepository)
+        private ICategoryService _categoryService;
+        public ProductService(IProductRepository productRepository, ICategoryService categoryService)
         {
             _repository = productRepository;
+            _categoryService = categoryService;
         }
-
-        public bool Add(ProductAddViewModel productAddViewModel)
-        {
-            //TODO convert to object initializer
-            var product = new Product();
-            product.Name = productAddViewModel.Name;
-            product.Description = productAddViewModel.Description;
-            product.Stock = productAddViewModel.Stock;
-            product.Price = productAddViewModel.Price;
-            var rowAffected = _repository.Add(product);
-
-            if (rowAffected > 0)
-                return true;
-            else return false;
-
-        }
-
-        public bool Delete(int id)
-        {
-            var product = _repository.Get(id);
-
-            if (product is null) return false;
-
-            var rowAffected = _repository.Delete(product);
-
-            if (rowAffected > 0)
-                return true;
-            else return false;
-
-        }
-
         public List<ProductViewModel> GetAll()
         {
             List<ProductViewModel> viewModels = new List<ProductViewModel>();
@@ -56,6 +28,7 @@ namespace OnlineShop.Application
                 viewModel.Price = product.Price;
                 viewModel.ImageUrl = product.ImageUrl;
                 viewModel.Id = product.Id;
+                viewModel.Category = product.Category?.Name;
                 viewModels.Add(viewModel);
             }
             return viewModels;
@@ -63,7 +36,7 @@ namespace OnlineShop.Application
 
         public ProductViewModel Get(int id)
         {
-            Product product = _repository.Get(id);
+            Product? product = _repository.Get(id);
 
             if (product == null)
                 return null;
@@ -75,14 +48,32 @@ namespace OnlineShop.Application
                 Description = product.Description,
                 Price = product.Price,
                 Stock = product.Stock,
-                ImageUrl = product.ImageUrl
+                ImageUrl = product.ImageUrl,
+                CategoryId = product.Category?.Id,
+                Categories = _categoryService.GetAll().Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                })
             };
 
             return viewModel;
-
         }
 
+        public bool Add(ProductAddViewModel productAddViewModel)
+        {
+            var product = new Product();
+            product.Name = productAddViewModel.Name;
+            product.Description = productAddViewModel.Description;
+            product.Stock = productAddViewModel.Stock;
+            product.Price = productAddViewModel.Price;
+            product.CategoryId = productAddViewModel.CategoryId;
+            var rowAffected = _repository.Add(product);
 
+            if (rowAffected > 0)
+                return true;
+            else return false;
+        }
 
         public bool Update(ProductUpdateViewModel viewModel)
         {
@@ -93,14 +84,48 @@ namespace OnlineShop.Application
             product.Description = viewModel.Description;
             product.Stock = viewModel.Stock;
             product.Price = viewModel.Price;
+            product.CategoryId = viewModel.CategoryId;
 
             var rowAffected = _repository.Update(product);
 
             if (rowAffected > 0)
                 return true;
             else return false;
+        }
 
-            // return rowAffected > 0;
+        public bool Delete(int id)
+        {
+            var product = _repository.Get(id);
+
+            if (product is null) return false;
+
+            var rowAffected = _repository.Delete(product);
+
+            if (rowAffected > 0)
+                return true;
+            else return false;
+        }
+
+        public ProductAddViewModel GetWithCategory(ProductAddViewModel? viewModel= null)
+        {
+            var categories = _categoryService.GetAll().Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            });
+            if (viewModel == null)
+            {
+                viewModel = new ProductAddViewModel
+                {
+                    Categories = categories
+                };
+            }
+            else
+            {
+                viewModel.Categories = categories;
+
+            }
+            return viewModel;
         }
     }
 }

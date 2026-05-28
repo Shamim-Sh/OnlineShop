@@ -4,10 +4,10 @@ namespace OnlineShop.Persistence
 {
     public interface IProductRepository
     {
-        int Add(Product product);
         List<Product> GetAll();
-        Product Get(int id);
-        int Delete(Product product);
+        Product? Get(int id);
+        int Add(Product product);
         int Update(Product product);
+        int Delete(Product product);
     }
 }

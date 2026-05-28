@@ -11,6 +11,7 @@ namespace OnlineShop.Persistence
            
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().ToTable(nameof(Product));
